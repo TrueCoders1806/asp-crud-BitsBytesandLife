@@ -13,20 +13,23 @@
 
 <body>
     <h2>@ViewData["Title"]</h2>
-    <a asp-area="" asp-controller="Location" asp-action="Index">Location</a>
+    <a asp-area="" asp-controller="Location" asp-action="NewLocation">New Location</a>
     <table class="table table-bordered">
         <tr>
-            <th>ProductID</th>
+            <th>Location ID</th>
             <th>Name</th>
             <th>CostRate</th>
             <th>Availability</th>
+            <th>Modified Date</th>
         </tr>
         @foreach (Location loc in Model.locations)
         {
             <tr>
+                <td>@loc.LocationID</td>
                 <td>@loc.Name</td>
                 <td>$@loc.CostRate</td>
                 <td>@loc.Availability</td>
+                <td>@loc.ModifiedDate</td>
              </tr>
         }
     </table>

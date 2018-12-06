@@ -11,6 +11,10 @@ namespace ASP_CRUD
 {
         public static string connectionString { get; set; }
 
+        /// <summary>
+        ///     This method return the records from the location table.
+        ///     Query: SELECT * FROM location 
+        /// </summary>
         public static List<Location> GetLocations()
         {
             MySqlConnection conn = new MySqlConnection(connectionString);
@@ -20,7 +24,7 @@ namespace ASP_CRUD
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT LocationId, Name, CostRate, Availability FROM location;";
+                cmd.CommandText = cmd.CommandText = "SELECT LocationId, Name, CostRate, Availability, ModifiedDate FROM location;"; ;
                 MySqlDataReader reader = cmd.ExecuteReader();
 
 
@@ -33,14 +37,37 @@ namespace ASP_CRUD
                     loc.CostRate = (double)reader["CostRate"];
                     loc.Availability = (decimal)reader["Availability"];
                     loc.ModifiedDate = (DateTime)reader["ModifiedDate"];
-
                     locations.Add(loc);
                 }
                 return locations;
             }
-
-
-
         }
+
+        /// <summary>
+        ///     CreateLocation method takes four parameters  (n = Name, c = CostRate, a = Availability)
+        ///     And creates a Location within our database with that Name,CostRate, Availability.
+        /// </summary>
+        public static int CreateLocation(string n, double c, decimal a)
+        {
+            MySqlConnection conn = new MySqlConnection(connectionString);
+
+            using (conn)
+            {
+                conn.Open();
+
+                MySqlCommand cmd = conn.CreateCommand();
+
+                cmd.CommandText = "INSERT INTO location (Name, CostRate, Availability) " +
+                                   "VALUES (@name, @costrate,@availability)";
+                cmd.Parameters.AddWithValue("name", n);
+                cmd.Parameters.AddWithValue("costrate", c);
+                cmd.Parameters.AddWithValue("availability", a);
+                //cmd.Parameters.AddWithValue("modifiedate", m);
+
+                return cmd.ExecuteNonQuery();
+            }
+        }
+
+
     }
 }

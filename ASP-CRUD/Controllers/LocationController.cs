@@ -23,6 +23,12 @@ namespace ASP_CRUD.Controllers
             return View();
         }
 
+        public IActionResult DeleteLocation(int locationID)
+        {
+            LocationRepository.DeleteLocation(locationID);
+            return RedirectToAction("Index", "Location");
+        }
+
         public IActionResult Create(string Name, double CostRate, decimal Availability)
         {
             Location l = new Location()

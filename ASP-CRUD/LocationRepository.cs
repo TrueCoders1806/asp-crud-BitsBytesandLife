@@ -62,12 +62,31 @@ namespace ASP_CRUD
                 cmd.Parameters.AddWithValue("name", n);
                 cmd.Parameters.AddWithValue("costrate", c);
                 cmd.Parameters.AddWithValue("availability", a);
-                //cmd.Parameters.AddWithValue("modifiedate", m);
 
                 return cmd.ExecuteNonQuery();
             }
         }
 
+        /// <summary>
+        ///     DeleteLocation method deletes and record from the location table
+        ///     takes one parameters  (LocationID)
+        ///     Deletes and record with a specific LocationId .
+        /// </summary>
+        public static int DeleteLocation(int LocationId)
+
+        {
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                var cmd = conn.CreateCommand();
+
+                cmd.CommandText = "DELETE FROM Location WHERE LocationId = @lId;";
+                cmd.Parameters.AddWithValue("lId", LocationId);
+
+               return cmd.ExecuteNonQuery();
+            }
+
+        }
 
     }
 }

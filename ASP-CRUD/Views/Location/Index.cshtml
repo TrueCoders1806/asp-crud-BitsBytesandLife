@@ -24,13 +24,20 @@
         </tr>
         @foreach (Location loc in Model.locations)
         {
-            <tr>
-                <td>@loc.LocationID</td>
-                <td>@loc.Name</td>
-                <td>$@loc.CostRate</td>
-                <td>@loc.Availability</td>
-                <td>@loc.ModifiedDate</td>
-             </tr>
+        <tr>
+            <td>@loc.LocationID</td>
+            <td>@loc.Name</td>
+            <td>$@loc.CostRate</td>
+            <td>@loc.Availability</td>
+            <td>@loc.ModifiedDate</td>
+            <td>
+                @using (Html.BeginForm("DeleteLocation", "Location", "POST"))
+                {
+                    <input asp-for="LocationID" class="control-label" type="hidden" value="@loc.LocationID" />
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                }
+            </td>
+        </tr>
         }
     </table>
 </body>

@@ -21,6 +21,8 @@
             <th>CostRate</th>
             <th>Availability</th>
             <th>Modified Date</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
         @foreach (Location loc in Model.locations)
         {
@@ -30,6 +32,16 @@
             <td>$@loc.CostRate</td>
             <td>@loc.Availability</td>
             <td>@loc.ModifiedDate</td>
+            <td>
+                @using (Html.BeginForm("UpdateLocation", "Location", "POST"))
+                {
+                    <input asp-for="LocationID" class="control-label" type="hidden" value="@loc.LocationID" />
+                    <input asp-for="Name" class="control-label" type="hidden" value="@loc.Name" />
+                    <input asp-for="CostRate" class="control-label" type="hidden" value="@loc.CostRate" />
+                    <input asp-for="Availability" class="control-label" type="hidden" value="@loc.Availability" />
+                    <input type="submit" value="Update" class="btn btn-default" />
+                }
+            </td>
             <td>
                 @using (Html.BeginForm("DeleteLocation", "Location", "POST"))
                 {

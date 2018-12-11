@@ -19,7 +19,7 @@ namespace ASP_CRUD
         {
             MySqlConnection conn = new MySqlConnection(connectionString);
 
-            using (conn)
+            using ( conn )
             {
                 conn.Open();
 
@@ -47,11 +47,11 @@ namespace ASP_CRUD
         ///     CreateLocation method takes four parameters  (n = Name, c = CostRate, a = Availability)
         ///     And creates a Location within our database with that Name,CostRate, Availability.
         /// </summary>
-        public static int CreateLocation(string n, double c, decimal a)
+        public static int CreateLocation(Location l)
         {
             MySqlConnection conn = new MySqlConnection(connectionString);
 
-            using (conn)
+            using ( conn )
             {
                 conn.Open();
 
@@ -59,9 +59,9 @@ namespace ASP_CRUD
 
                 cmd.CommandText = "INSERT INTO location (Name, CostRate, Availability) " +
                                    "VALUES (@name, @costrate,@availability)";
-                cmd.Parameters.AddWithValue("name", n);
-                cmd.Parameters.AddWithValue("costrate", c);
-                cmd.Parameters.AddWithValue("availability", a);
+                cmd.Parameters.AddWithValue("name", l.Name);
+                cmd.Parameters.AddWithValue("costrate", l.CostRate);
+                cmd.Parameters.AddWithValue("availability", l.Availability);
 
                 return cmd.ExecuteNonQuery();
             }
@@ -73,7 +73,6 @@ namespace ASP_CRUD
         ///     Deletes and record with a specific LocationId .
         /// </summary>
         public static int DeleteLocation(int LocationId)
-
         {
             using (var conn = new MySqlConnection(connectionString))
             {
@@ -88,5 +87,29 @@ namespace ASP_CRUD
 
         }
 
+        /// <summary>
+        ///     UpdateLocation method updates all field in the location table
+        ///     takes Location object parameters 
+        ///     And updates a Location within our database with that all fields.
+        /// </summary>
+        public static void UpdateLocation(Location l)
+        {
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                var cmd = conn.CreateCommand();
+
+                cmd.CommandText = "UPDATE location SET Name = @name, CostRate = @costrate, " +
+                                  "Availability = @availability,ModifiedDate =  @modifiedate " +
+                                  "WHERE LocationID = @locationID";
+                cmd.Parameters.AddWithValue("name", l.Name);
+                cmd.Parameters.AddWithValue("costrate", l.CostRate);
+                cmd.Parameters.AddWithValue("availability", l.Availability);
+                cmd.Parameters.AddWithValue("modifiedate", DateTime.Now);
+                cmd.Parameters.AddWithValue("LocationID", l.LocationID);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

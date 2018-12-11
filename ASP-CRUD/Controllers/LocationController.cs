@@ -38,9 +38,37 @@ namespace ASP_CRUD.Controllers
                 Availability = Availability
             };
 
-            LocationRepository.CreateLocation(Name, CostRate, Availability);
+            LocationRepository.CreateLocation(l);
             
             return RedirectToAction("Index", "Location");
+        }
+
+        public IActionResult UpdateLocation(int LocationID, string Name, double CostRate, decimal Availability)
+        {
+            Location l = new Location()
+            {
+                LocationID = LocationID,
+                Name = Name,
+                CostRate = CostRate,
+                Availability = Availability
+            };
+
+            return View(l);
+        }
+
+        public IActionResult Update(int LocationID,double CostRate, string Name, decimal Availability)
+        {
+            Location l = new Location()
+            {
+                LocationID = LocationID,
+                Name = Name,
+                CostRate = CostRate,
+                Availability = Availability
+            };
+
+            LocationRepository.UpdateLocation(l);
+            return RedirectToAction("Index", "Location");
+
         }
 
     }

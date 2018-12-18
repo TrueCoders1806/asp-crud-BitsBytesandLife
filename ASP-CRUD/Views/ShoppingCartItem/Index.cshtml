@@ -1,0 +1,58 @@
+﻿@model ASP_CRUD.Models.ViewModels.ShoppingCartItemViewModel
+@{
+    ViewData["Title"] = "ShoppingCartItem";
+}
+
+<head>
+    <title>
+        @ViewData["Title"]
+    </title>
+</head>
+
+<h2>Shopping Cart Items</h2>
+<!--<a asp-area="" asp-controller="ShoppingCartItem" asp-action="NewShoppingCartItem">New Cart Item</a>-->
+@using (Html.BeginForm("NewShoppingCartItem", "ShoppingCartItem", "POST"))
+{ 
+    <input type="submit" value="New Cart Item" class="btn btn-default" />
+}
+<table class="table table-bordered">
+    <tr>
+        <th>Cart Item ID</th>
+        <th>Cart ID</th>
+        <th>Quantity</th>
+        <th>Product ID</th>
+        <th>Date Created</th>
+        <th>Modified Date</th>
+        <th style="text-align:center;">Update</th>
+        <th style="text-align:center;">Delete</th>
+    </tr>
+    @foreach (ShoppingCartItemModel cart in Model.carts)
+    {
+        <tr>
+            <td>@cart.ShoppingCartItemID</td>
+            <td>@cart.ShoppingCartID</td>
+            <td>@cart.Quantity</td>
+            <td>@cart.ProductID</td>
+            <td>@cart.DateCreated.ToShortDateString()</td>
+            <td>@cart.ModifiedDate.ToShortDateString()</td>
+            <td style="text-align:center;">
+                @using (Html.BeginForm("UpdateCartItem", "ShoppingCartItem", "POST"))
+                {
+                    <input asp-for="ShoppingCartItemID" class="control-label" type="hidden" value="@cart.ShoppingCartItemID" />
+                    <input asp-for="ShoppingCartID" class="control-label" type="hidden" value="@cart.ShoppingCartID" />
+                    <input asp-for="Quantity" class="control-label" type="hidden" value="@cart.Quantity" />
+                    <input asp-for="ProductID" class="control-label" type="hidden" value="@cart.ProductID" />
+                    <input type="submit" value="Update" class="btn btn-default" />
+                }
+            </td>
+            <td style="text-align:center;">
+                @using (Html.BeginForm("DeleteCartItem", "ShoppingCartItem", "POST"))
+                {
+                    <input asp-for="ShoppingCartItemID" class="control-label" type="hidden" value="@cart.ShoppingCartItemID" />
+                    <input type="submit" value="Delete" class="btn btn-default" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>

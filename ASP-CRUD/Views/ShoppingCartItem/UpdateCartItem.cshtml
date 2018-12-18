@@ -1,0 +1,25 @@
+﻿@model ShoppingCartItemModel
+@{
+    ViewData["Title"] = "UpdateShoppingCartItem";
+}
+
+<h2>UpdateLocation</h2>
+
+@using (Html.BeginForm("Update", "ShoppingCartItem", "POST"))
+{
+    <input asp-for="ShoppingCartItemID" class="control-label" type="hidden" value="@Model.ShoppingCartItemID" />
+    <label asp-for="ShoppingCartID" class="control-label">Shopping CartID:</label>
+    <input type="text" name="ShoppingCartID" class="form-control" placeholder="@Model.ShoppingCartID" value="@Model.ShoppingCartID" />
+    <br />
+
+    <label asp-for="Quantity" class="control-label">Quantity:</label>
+    <input type="number" name="Quantity" class="form-control" placeholder="@Model.Quantity" value="@Model.Quantity" />
+    <br />
+
+    <label asp-for="ProductID" class="control-label">ProductID:</label>
+    <input type="number" name="ProductID" class="form-control" placeholder="@Model.ProductID" value="@Model.ProductID" />
+    <br />
+
+    <input type="submit" name="Submit" value="Update ShoppingCartItem" class="btn btn-default" />
+    <br />
+}

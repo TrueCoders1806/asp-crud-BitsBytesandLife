@@ -1,0 +1,25 @@
+﻿@model Location
+@{
+    ViewData["Title"] = "UpdateLocation";
+}
+
+<h2>UpdateLocation</h2>
+
+@using (Html.BeginForm("Update", "Location", "POST"))
+{
+    <input asp-for="LocationID" class="control-label" type="hidden" value="@Model.LocationID" />
+    <label asp-for="Name" class="control-label">Name:</label>
+    <input type="text" name="Name" class="form-control" placeholder="@Model.Name" value="@Model.Name" />
+    <br />
+
+    <label asp-for="CostRate" class="control-label">CostRate:</label>
+    <input type="number" name="CostRate" class="form-control" placeholder="@Model.CostRate" value="@Model.CostRate" />
+    <br />
+
+    <label asp-for="Availability" class="control-label">Availability:</label>
+    <input type="number" name="Availability" class="form-control" placeholder="@Model.Availability" value="@Model.Availability" />
+    <br />
+
+    <input type="submit" name="Submit" value="Update Location" class="btn btn-default" />
+    <br />
+}

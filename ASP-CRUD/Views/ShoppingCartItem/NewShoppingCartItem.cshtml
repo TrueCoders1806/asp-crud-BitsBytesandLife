@@ -1,0 +1,25 @@
+﻿@model ShoppingCartItemModel
+@{
+    ViewData["Title"] = "NewShoppingCartItem";
+}
+
+<h2>New Cart Item</h2>
+
+@using (Html.BeginForm("Create", "ShoppingCartItem", "POST"))
+{
+    <br />
+    <label asp-for="ShoppingCartID" class="control-label">Shopping CartID:</label>
+    <input type="text" name="ShoppingCartID" class="form-control" value="" />
+    <br />
+
+    <label asp-for="Quantity" class="control-label">Quantity:</label>
+    <input type="number" name="Quantity" class="form-control" value="" />
+    <br />
+
+    <label asp-for="ProductID" class="control-label">Product ID:</label>
+    <input type="number" name="ProductID" class="form-control" value="" />
+    <br />
+
+    <input type="submit" name="Submit" value="Create ShoppingCartItem" class="btn btn-default" />
+    <br />
+}

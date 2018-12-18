@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
+
 
 namespace ASP_CRUD
 {
@@ -14,6 +16,14 @@ namespace ASP_CRUD
     {
         public static void Main(string[] args)
         {
+            string connString =
+               JObject.Parse(File.ReadAllText("appsettings.Development.json"))["ConnectionString"]["DefaultConnection"].ToString();
+
+            ShoppingCartItemRepository.connectionString = connString;
+            LocationRepository.connectionString = connString;
+
+
+
             CreateWebHostBuilder(args).Build().Run();
         }
 

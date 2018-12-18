@@ -2260,6 +2260,11 @@ caption {
 th {
   text-align: left;
 }
+
+.thCenter {
+    text-align: center;
+}
+
 .table {
   width: 100%;
   max-width: 100%;

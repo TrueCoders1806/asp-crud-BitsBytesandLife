@@ -24,7 +24,7 @@ namespace ASP_CRUD
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = cmd.CommandText = "SELECT LocationId, Name, CostRate, Availability, ModifiedDate FROM location;"; ;
+                cmd.CommandText = cmd.CommandText = "SELECT LocationId, Name, CostRate, Availability, ModifiedDate FROM location;"; 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
 
@@ -111,5 +111,7 @@ namespace ASP_CRUD
                 cmd.ExecuteNonQuery();
             }
         }
+
+        
     }
 }

@@ -13,41 +13,46 @@
 
 <body>
     <h2>@ViewData["Title"]</h2>
-    <a asp-area="" asp-controller="Location" asp-action="NewLocation">New Location</a>
+
+    <!-- <a asp-area="" asp-controller="Location" asp-action="NewLocation">New Location</a> -->
+    @using (Html.BeginForm("NewLocation", "Location", "POST"))
+    {
+        <input type="submit" value="New Location" class="btn btn-default" />
+    }
     <table class="table table-bordered">
         <tr>
             <th>Name</th>
             <th>CostRate</th>
             <th>Availability</th>
             <th>Modified Date</th>
-            <th>Update</th>
-            <th>Delete</th>
+            <th style="text-align:center;">Update</th>
+            <th style="text-align:center;">Delete</th>
         </tr>
         @foreach (Location loc in Model.locations)
         {
-        <tr>
-            <td>@loc.Name</td>
-            <td>$@loc.CostRate</td>
-            <td>@loc.Availability</td>
-            <td>@loc.ModifiedDate</td>
-            <td align="center">
-                @using (Html.BeginForm("UpdateLocation", "Location", "POST"))
-                {
-                    <input asp-for="LocationID" class="control-label" type="hidden" value="@loc.LocationID" />
-                    <input asp-for="Name" class="control-label" type="hidden" value="@loc.Name" />
-                    <input asp-for="CostRate" class="control-label" type="hidden" value="@loc.CostRate" />
-                    <input asp-for="Availability" class="control-label" type="hidden" value="@loc.Availability" />
-                    <input type="submit" value="Update" class="btn btn-default" />
-                }
-            </td>
-            <td align="center">
-                @using (Html.BeginForm("DeleteLocation", "Location", "POST"))
-                {
-                    <input asp-for="LocationID" class="control-label" type="hidden" value="@loc.LocationID" />
-                    <input type="submit" value="Delete" class="btn btn-default" />
-                }
-            </td>
-        </tr>
+            <tr>
+                <td>@loc.Name</td>
+                <td>$@loc.CostRate</td>
+                <td>@loc.Availability</td>
+                <td>@loc.ModifiedDate.ToShortDateString()</td>
+                <td align="center">
+                    @using (Html.BeginForm("UpdateLocation", "Location", "POST"))
+                    {
+                        <input asp-for="LocationID" class="control-label" type="hidden" value="@loc.LocationID" />
+                        <input asp-for="Name" class="control-label" type="hidden" value="@loc.Name" />
+                        <input asp-for="CostRate" class="control-label" type="hidden" value="@loc.CostRate" />
+                        <input asp-for="Availability" class="control-label" type="hidden" value="@loc.Availability" />
+                        <input type="submit" value="Update" class="btn btn-default" />
+                    }
+                </td>
+                <td align="center">
+                    @using (Html.BeginForm("DeleteLocation", "Location", "POST"))
+                    {
+                        <input asp-for="LocationID" class="control-label" type="hidden" value="@loc.LocationID" />
+                        <input type="submit" value="Delete" class="btn btn-default" />
+                    }
+                </td>
+            </tr>
         }
     </table>
 </body>

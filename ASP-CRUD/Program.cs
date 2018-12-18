@@ -16,8 +16,14 @@ namespace ASP_CRUD
     {
         public static void Main(string[] args)
         {
-            LocationRepository.connectionString =
+            string connString =
                JObject.Parse(File.ReadAllText("appsettings.Development.json"))["ConnectionString"]["DefaultConnection"].ToString();
+
+            ShoppingCartItemRepository.connectionString = connString;
+            LocationRepository.connectionString = connString;
+
+
+
             CreateWebHostBuilder(args).Build().Run();
         }
 
